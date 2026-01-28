@@ -1,0 +1,7 @@
+INFO User logged in
+INFO User requested page
+ERROR Failed login attempt
+INFO User logged out
+WARNING Multiple failed attempts
+INFO User logged in
+DENIED Access denied for user

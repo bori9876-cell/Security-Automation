@@ -1,0 +1,17 @@
+INFO User logged in
+INFO User requested page
+ERROR Failed login attempt
+INFO User logged out
+WARNING Multiple failed attempts
+INFO User logged in
+DENIED Access denied for user
+ERROR Failed login attempt
+ERROR Failed login attempt
+ERROR Failed login attempt
+2026-01-26 10:15:01 ERROR Failed login attempt
+2026-01-26 10:15:20 ERROR Failed login attempt
+2026-01-26 10:15:45 ERROR Failed login attempt
+2026-01-26 10:17:10 INFO User logged in
+2026-01-26 10:15:01 ERROR ip=192.168.1.50 Failed login attempt
+2026-01-26 10:15:01 ERROR ip=192.168.1.51 Failed login attempt
+2026-01-26 10:15:01 ERROR ip=192.168.1.54 Failed login attempt

@@ -14,6 +14,7 @@ def count_keywords_in_file(filename, keywords_list):
             for key in counts:
                 if key in line_lower:
                     counts[key] += 1
+                    
     return counts
 
 result = count_keywords_in_file(sys.argv[1], sys.argv[2:])

@@ -5,3 +5,4 @@ ERROR: Timeout occurred
 WARNING: Low disk space
 INFO: Process completed
 ERROR: Could not write file
+ERROR: Disk full WARNING: CPU high

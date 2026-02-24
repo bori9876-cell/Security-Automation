@@ -1,3 +1,9 @@
+severity = {
+    "ERROR": 3,
+    "WARNING": 2,
+    "INFO": 1
+}
+
 # Colors
 RED = "\033[31m"
 YELLOW = "\033[33m"
@@ -18,6 +24,7 @@ def load_keywords(filename):
 def scanner(filename, keywords):
     results = {}
     line_number = 0
+    total_score = 0
 
     with open(filename, "r") as f:
         for line in f:
@@ -34,15 +41,18 @@ def scanner(filename, keywords):
                     clean_line = line.replace(keyword, "").strip()
                     clean_line = clean_line.lstrip(": ")
 
+                    if keyword in severity:
+                        total_score += severity[keyword]                    
+
                     # store line number + cleaned text
                     results[keyword].append((line_number, clean_line))
 
-    return results
+    return results, total_score
 
 
 # Load keywords and scan
 keywords = load_keywords("keywords.txt")
-scan = scanner("sample.log", keywords)
+scan, score = scanner("sample.log", keywords)
 
 
 # C) Print results with colors
@@ -59,3 +69,5 @@ for key, matches in scan.items():
             color = RESET
 
         print(color + key + RESET, "on line", ln, ":", text)
+
+print("\nTotal Risk Score:", score)

@@ -58,9 +58,8 @@ def scanner(filename, keywords):
                     clean_line = line.replace(keyword, "").strip()
                     clean_line = clean_line.lstrip(": ")
                     results[keyword].append((line_number, clean_line))
-                    
     return results
-        
+                                   
 
 # =========================
 # D) LOAD KEYWORDS + RUN SCANNER
@@ -90,6 +89,6 @@ for key, matches in scan.items():
         elif key == "INFO":
             color = GREEN
         else:
-            color = "RESET"
+            color = RESET
         print(color + key + RESET, "on line", ln, ":", text)
     

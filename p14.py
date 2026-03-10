@@ -5,14 +5,14 @@ RESET = "\033[0m"
 
 def load_keywords(filename):
     keywords = []
-    with open(filename, "r") as f:
+    with open(filename, 'r') as f:
         for line in f:
             keywords.append(line.strip())
     return keywords
 
 def scanner(filename, keywords):
     results = {}
-    line_number = 0    
+    line_number = 0
     with open(filename, 'r') as f:
         for line in f:
             line_number += 1
@@ -25,17 +25,23 @@ def scanner(filename, keywords):
                     results[keyword].append((line_number, clean_line))
     return results
 
-keywords = load_keywords("keywords.txt")
-scan = scanner('sample.log', keywords)
+def main():
+    log_file = input("Enter log file name: ")
+    keyword_file = input("Enter keywords file name: ")
 
-for key, matches in scan.items():
-    for ln, text in matches:
-        if key == "ERROR":
-            color = RED
-        elif key == "WARNING":
-            color = YELLOW
-        elif key == "INFO":
-            color = GREEN
-        else:
-            color = RESET
-        print(color + key + RESET, "on line", ln, ':', text)
+    keywords = load_keywords(keyword_file)
+    scan = scanner(log_file, keywords)
+    for key, matches in scan.items():
+        for ln, text in matches:
+            if key == "ERROR":
+                color = RED
+            elif key == "WARNING":
+                color = YELLOW
+            elif key == "INFO":
+                color = GREEN
+            else:
+                color = RESET
+            print(color + key + RESET, "on line", ln, ":", text)
+        
+if __name__ == "__main__":
+    main()

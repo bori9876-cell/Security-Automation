@@ -17,4 +17,4 @@ def count_keywords_in_file(filename, keywords_list):
     return counts
 
 result = count_keywords_in_file(sys.argv[1], sys.argv[2:])
-print(result\n)
+print(result)

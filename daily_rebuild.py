@@ -27,9 +27,6 @@ def load_keywords(filename):
             keywords.append(line.strip())
     return keywords
 
-
-
-
 # =========================
 # C) SCANNER FUNCTION
 # =========================
@@ -61,8 +58,6 @@ def scanner(filename, keywords):
                     clean_line = clean_line.lstrip(": ")
                     results[keyword].append((line_number, clean_line))
     return results
-                
-
                                    
 
 # =========================
@@ -84,14 +79,17 @@ scan = scanner("sample.log", keywords)
 # For each match:
 #   - choose color based on keyword (ERROR red, WARNING yellow, INFO green)
 #   - print keyword, line number, and text nicely
+colors = {
+    "ERROR" : RED,
+    "WARNING" : YELLOW,
+    "INFO" : GREEN
+}
+# Loop through the tuple returned by scan
+# define color variable to be the color that matches the key in the tuple
 for key, matches in scan.items():
+    color = colors.get(key, RESET)
+
+# loop through the line number and text in the key matches
+# print the color coded line the way you want it to show (change the color, write they keyword, reset the color, "on line", line number, ending text)
     for ln, text in matches:
-        if key == "ERROR":
-            color = RED
-        elif key == "WARNING":
-            color = YELLOW
-        elif key == "INFO":
-            color = GREEN
-        else:
-            color = RESET
-        print(color + key + RESET, "on line", ln, ":", text)    
+        print(color + key + RESET, "on line", ln, ":", text)

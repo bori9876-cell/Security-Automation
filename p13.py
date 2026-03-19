@@ -92,5 +92,4 @@ for key, matches in scan.items():
             color = GREEN
         else:
             color = RESET
-        print(color + key + RESET, "on line", ln, ":", text)
-    
+        print(color + key + RESET, "on line", ln, ":", text)    

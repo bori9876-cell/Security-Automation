@@ -71,3 +71,14 @@ for key, matches in scan.items():
         print(color + key + RESET, "on line", ln, ":", text)
 
 print("\nTotal Risk Score:", score)
+
+
+# Loop through they tuple returned by scan
+# define color variable to be the color that matches the key in the tuple
+for key, matches in scan.items():
+    color = colors.get(key, RESET)
+    
+# loop through the line number and text in the key matches
+# print the color coded line the way you want it to show
+    for ln, text in matches:
+        print(color + key + RESET, "on line", ln, ":", text)

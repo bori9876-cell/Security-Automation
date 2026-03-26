@@ -93,3 +93,4 @@ for key, matches in scan.items():
 # print the color coded line the way you want it to show (change the color, write they keyword, reset the color, "on line", line number, ending text)
     for ln, text in matches:
         print(color + key + RESET, "on line", ln, ":", text)
+    

@@ -31,16 +31,15 @@ def main():
 
     keywords = load_keywords(keyword_file)
     scan = scanner(log_file, keywords)
+    colors = {
+    "ERROR" : RED,
+    "WARNING" : YELLOW,
+    "INFO" : GREEN
+    }
+    
     for key, matches in scan.items():
+        color = colors.get(key, RESET)
         for ln, text in matches:
-            if key == "ERROR":
-                color = RED
-            elif key == "WARNING":
-                color = YELLOW
-            elif key == "INFO":
-                color = GREEN
-            else:
-                color = RESET
             print(color + key + RESET, "on line", ln, ":", text)
         
 if __name__ == "__main__":

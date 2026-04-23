@@ -21,8 +21,12 @@ while True:
         break
 
     priority = input("Please enter priority level (high, medium, low): " )
+    if priority.lower() not in ["high", "medium", "low"]:
+        print("Invalid input. Please enter High, Medium, or Low")
+        continue
     if priority.lower() == "high":
         tasks["HIGH"].append(task)
+    
     
     elif priority.lower() == "medium":
         tasks["MEDIUM"].append(task)

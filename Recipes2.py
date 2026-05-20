@@ -1,9 +1,18 @@
 import json
 
 recipes = {
-    "tacos": ["beef", "cheese", "taco_shells"],
-    "omelette": ["eggs", "cheese"],
-    "spaghetti": ["pasta", "sauce"]
+    "tacos": {
+        "ingredients": ["beef", "cheese", "taco_shells"],
+        "instructions": ["brown the beef in skillet", "add beef to taco shells", "add cheese on top of beef"]
+    },
+    "omelette": {
+        "ingredients": ["eggs", "cheese"]
+        "instructions": ["wisk eggs in a bowl", "pour into hot buttered egg pan", "flip when flippable", "cover with cheese", "after finished cooking, fold in half and serve"]
+    } ,
+    "spaghetti": {
+        "ingredients": ["pasta", "sauce"]
+        "instructions": ["make the pasta", "make the sauce", "mix together and serve"]
+    } 
 }
 
 def load_recipes():
@@ -54,8 +63,11 @@ def view_all_recipes():
     select_recipe = input("Select a recipe: ").lower()
     if select_recipe in recipes:
         print(f"Ingredients for {select_recipe}:")
-        for ingredients_list in recipes[select_recipe]:
+        for ingredients_list in recipes[select_recipe]["ingredients"]:
             print("-", ingredients_list.title())
+        print(f"Instructions for {select_recipe}:")
+        for instruction_steps in recipes[select_recipe]["instructions"]:
+            print("-", instruction_steps.title())
     else:
         print("Recipe not found.")
 

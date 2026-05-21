@@ -6,11 +6,11 @@ recipes = {
         "instructions": ["brown the beef in skillet", "add beef to taco shells", "add cheese on top of beef"]
     },
     "omelette": {
-        "ingredients": ["eggs", "cheese"]
+        "ingredients": ["eggs", "cheese"],
         "instructions": ["wisk eggs in a bowl", "pour into hot buttered egg pan", "flip when flippable", "cover with cheese", "after finished cooking, fold in half and serve"]
-    } ,
+    },
     "spaghetti": {
-        "ingredients": ["pasta", "sauce"]
+        "ingredients": ["pasta", "sauce"],
         "instructions": ["make the pasta", "make the sauce", "mix together and serve"]
     } 
 }
@@ -30,15 +30,15 @@ def save_recipes():
 def search_recipes():
     craving = input("Enter the food you are craving: ")
     matches = []
-    for recipe_name, ingredients in recipes.items():
-        if craving.lower() in ingredients:
+    for recipe_name, recipe_data in recipes.items():
+        if craving.lower() in recipe_data["ingredients"]:
             print("-", recipe_name.title())            
             matches.append(recipe_name)
     if matches:
         recipe_choice = input("Please select a recipe from the list: ").lower()
         if recipe_choice in matches:            
             print(f"Ingredients for {recipe_choice}:")
-            for ingredients_list in recipes[recipe_choice]:
+            for ingredients_list in recipes[recipe_choice]["ingredients"]:
                 print("-", ingredients_list.title())
     if not matches:
         print("Sorry, there are no recipes with that ingredient available.")
@@ -48,10 +48,16 @@ def search_recipes():
 def add_recipe():
     recipe_name = input("Enter the name of the recipe you would like to add: ").lower()
     raw_ingredients = input("Enter the ingredients: ").split(",")
+    instructions = input("Enter cooking instructions: ").split(",")
     clean_ingredients = []
+    clean_instructions = []
     for item in raw_ingredients:
         clean_ingredients.append(item.strip())
-    recipes[recipe_name] = clean_ingredients
+    for item in instructions:
+        clean_instructions.append(item.strip())
+    recipes[recipe_name] = {
+        "ingredients": clean_ingredients, "instructions": clean_instructions
+    }
     save_recipes()
     print(recipe_name.title(), "added.")
 

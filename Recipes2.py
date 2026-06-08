@@ -36,10 +36,16 @@ def search_recipes():
             matches.append(recipe_name)
     if matches:
         recipe_choice = input("Please select a recipe from the list: ").lower()
-        if recipe_choice in matches:            
+        if recipe_choice in matches:
+            step_number = 1
             print(f"Ingredients for {recipe_choice}:")
             for ingredients_list in recipes[recipe_choice]["ingredients"]:
                 print("-", ingredients_list.title())
+            print()
+            print(f"Instructions for {recipe_choice}:")
+            for instruction_steps in recipes[recipe_choice]["instructions"]:
+                print(f"Step {step_number}.", instruction_steps.capitalize())
+                step_number += 1
     if not matches:
         print("Sorry, there are no recipes with that ingredient available.")
 
@@ -83,11 +89,21 @@ def edit_recipe():
     if not recipes:
         print("No recipes to edit")
         return
+    recipe_option = 1
     for recipe_name in recipes:
-        print("-", recipe_name.title())
+        print(f"{recipe_option}. {recipe_name.title()}")
+        recipe_option += 1
     print()
     choose_recipe = input("Which recipe would you like to edit?: ").lower().strip()
     if choose_recipe in recipes:
+        print(f"Ingredients for {choose_recipe}:")
+        for ingredients_list in recipes[choose_recipe]["ingredients"]:
+            print("-", ingredients_list.title())
+        print(f"Instructions for {choose_recipe}:")
+        step_number = 1
+        for instruction_steps in recipes[choose_recipe]["instructions"]:
+            print(f"Step {step_number}.", instruction_steps.capitalize())
+            step_number += 1
         while True:            
             edit_what = input("1: Edit ingredients?\n2: Edit instructions?\n3: Return to main menu\n Choose: ")
             if edit_what == "1":
@@ -112,10 +128,6 @@ def edit_recipe():
             else:
                 print("Invalid choice, please choose again")
                 continue
-                
-
-    
-
 
 def delete_recipe():
     if not recipes:

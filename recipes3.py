@@ -51,7 +51,7 @@ def search_recipes():
     for recipe_name, recipe_data in recipes.items():
         if (
             craving.lower() in recipe_name or
-            craving.lower() in recipe_data["ingredients"]:
+            craving.lower() in recipe_data["ingredients"]
         ):
             print("-", recipe_name.title())            
             matches.append(recipe_name)

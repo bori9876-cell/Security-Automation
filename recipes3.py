@@ -34,7 +34,7 @@ def display_recipe(recipe_name):
     print(f"Instructions for {recipe_name}:")
 
     step_number = 1
-    
+
     for instructions in recipes[recipe_name]["instructions"]:
         print(f"Step {step_number}: {instructions.capitalize()}")
         step_number += 1
@@ -49,7 +49,10 @@ def search_recipes():
     matches = []
 
     for recipe_name, recipe_data in recipes.items():
-        if craving.lower() in recipe_data["ingredients"]:
+        if (
+            craving.lower() in recipe_name or
+            craving.lower() in recipe_data["ingredients"]:
+        ):
             print("-", recipe_name.title())            
             matches.append(recipe_name)
 
@@ -145,6 +148,8 @@ def edit_recipe():
             else:
                 print("Invalid choice, please choose again")
                 continue
+    else:
+        print("Recipe not found.")
 
 def delete_recipe():
     if not recipes:

@@ -53,7 +53,7 @@ def search_recipes():
             craving.lower() in recipe_name or
             craving.lower() in recipe_data["ingredients"]
         ):
-            print("-", recipe_name.title())            
+            print(f"{len(matches)+1}. {recipe_name.title()}")            
             matches.append(recipe_name)
 
     if matches:
@@ -107,50 +107,84 @@ def view_all_recipes():
     else:
         print("Recipe not found.")
 
-def edit_recipe():    
-    if not recipes:
-        print("No recipes to edit")
-        return
-    
+def select_recipe():
     recipe_option = 1
 
+    recipe_list = []
+    
     for recipe_name in recipes:
         print(f"{recipe_option}. {recipe_name.title()}")
         recipe_option += 1
+        recipe_list.append(recipe_name)
 
     print()
 
     choose_recipe = input("Which recipe would you like to edit?: ").lower().strip()
 
-    if choose_recipe in recipes:
-        display_recipe(choose_recipe)
-        while True:            
-            edit_what = input("1: Edit ingredients?\n2: Edit instructions?\n3: Return to main menu\n Choose: ")
-            if edit_what == "1":
-                edited_ingredients = input("Please enter new ingredients: ").lower().strip()
-                cleaned_ingredients = []
-                for item in edited_ingredients.split(","):
-                    cleaned_ingredients.append(item.strip())    
-                recipes[choose_recipe]["ingredients"] = cleaned_ingredients
-                save_recipes()
-                break
-            elif edit_what == "2":
-                edited_instructions = input("Please enter new instructions: ").lower().strip()
-                cleaned_instructions = []
-                for item in edited_instructions.split(","):
-                    cleaned_instructions.append(item.strip())
-                recipes[choose_recipe]["instructions"] = cleaned_instructions
-                save_recipes()
-                break
-            elif edit_what == "3":
-                print("Returning to main menu")
-                break
-            else:
-                print("Invalid choice, please choose again")
-                continue
+    if choose_recipe.isdigit():
+        choose_recipe = int(choose_recipe)
+        choose_recipe = choose_recipe - 1
+
+        if choose_recipe < 0 or choose_recipe >= len(recipe_list):
+            print("Invalid input")
+            print()
+            return
+        
+        chosen_recipe = recipe_list[choose_recipe]
+        return chosen_recipe
+    
+    elif choose_recipe in recipes:
+        chosen_recipe = choose_recipe
+        return chosen_recipe
+
     else:
         print("Recipe not found.")
+        print()
+        return
 
+def edit_recipe():    
+    if not recipes:
+        print("No recipes to edit")
+        return
+    
+    chosen_recipe = select_recipe()
+
+    if chosen_recipe is None:
+        return
+    
+    display_recipe(chosen_recipe)
+
+    while True:            
+        edit_what = input("1: Edit ingredients?\n2: Edit instructions?\n3: Return to main menu\n Choose: ")
+
+        if edit_what == "1":
+            edited_ingredients = input("Please enter new ingredients: ").lower().strip()
+            cleaned_ingredients = []
+            for item in edited_ingredients.split(","):
+                cleaned_ingredients.append(item.strip())    
+            recipes[chosen_recipe]["ingredients"] = cleaned_ingredients
+            save_recipes()
+            print("Ingredients updated")
+            break
+
+        elif edit_what == "2":
+            edited_instructions = input("Please enter new instructions: ").lower().strip()
+            cleaned_instructions = []
+            for item in edited_instructions.split(","):
+                cleaned_instructions.append(item.strip())
+            recipes[chosen_recipe]["instructions"] = cleaned_instructions
+            save_recipes()
+            print("Instructions updated")
+            break
+
+        elif edit_what == "3":
+            print("Returning to main menu")
+            break
+
+        else:
+            print("Invalid choice, please choose again")
+            continue
+        
 def delete_recipe():
     if not recipes:
         print("No recipes to delete")

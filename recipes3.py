@@ -108,39 +108,49 @@ def view_all_recipes():
         print("Recipe not found.")
 
 def select_recipe():
-    recipe_option = 1
+    while True:
+        recipe_option = 1
 
-    recipe_list = []
-    
-    for recipe_name in recipes:
-        print(f"{recipe_option}. {recipe_name.title()}")
-        recipe_option += 1
-        recipe_list.append(recipe_name)
+        recipe_list = []
 
-    print()
-
-    choose_recipe = input("Which recipe would you like to edit?: ").lower().strip()
-
-    if choose_recipe.isdigit():
-        choose_recipe = int(choose_recipe)
-        choose_recipe = choose_recipe - 1
-
-        if choose_recipe < 0 or choose_recipe >= len(recipe_list):
-            print("Invalid input")
-            print()
-            return
+        print("0. Back")
         
-        chosen_recipe = recipe_list[choose_recipe]
-        return chosen_recipe
-    
-    elif choose_recipe in recipes:
-        chosen_recipe = choose_recipe
-        return chosen_recipe
+        for recipe_name in recipes:
+            print(f"{recipe_option}. {recipe_name.title()}")
+            recipe_option += 1
+            recipe_list.append(recipe_name)
 
-    else:
-        print("Recipe not found.")
         print()
-        return
+
+        choose_recipe = input("Which recipe would you like to edit?: ").lower().strip()
+        # choose_recipe = what the user typed
+        if choose_recipe == "back":
+                return
+
+        elif choose_recipe.isdigit():
+            choose_recipe = int(choose_recipe)
+            # choose_recipe = turned into a number
+            if choose_recipe == 0:
+                return
+            choose_recipe = choose_recipe - 1
+            # choose_recipe = list position (index)
+
+            if choose_recipe < 0 or choose_recipe >= len(recipe_list):
+                print("Invalid input")
+                print()
+                continue
+            
+            chosen_recipe = recipe_list[choose_recipe]
+            # chosen_recipe = actual recipe name
+            return chosen_recipe
+        
+        elif choose_recipe in recipes:
+            return choose_recipe
+
+        else:
+            print("Recipe not found.")
+            print()
+            continue
 
 def edit_recipe():    
     if not recipes:
